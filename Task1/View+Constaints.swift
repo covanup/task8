@@ -17,8 +17,8 @@ extension UIView {
         let constaints: [NSLayoutConstraint?] = [
             top.flatMap { topAnchor.constraint(equalTo: superview!.topAnchor, constant: $0) },
             leading.flatMap { leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: $0) },
-            bottom.flatMap { bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: $0) },
-            trailing.flatMap { trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: $0) },
+            bottom.flatMap { bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: -$0) },
+            trailing.flatMap { trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: -$0) },
         ]
         NSLayoutConstraint.activate(constaints.compactMap { $0 })
         return self
@@ -30,8 +30,8 @@ extension UIView {
         let constaints: [NSLayoutConstraint?] = [
             top.flatMap { topAnchor.constraint(equalTo: superview!.layoutMarginsGuide.topAnchor, constant: $0) },
             leading.flatMap { leadingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.leadingAnchor, constant: $0) },
-            bottom.flatMap { bottomAnchor.constraint(equalTo: superview!.layoutMarginsGuide.bottomAnchor, constant: $0) },
-            trailing.flatMap { trailingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.trailingAnchor, constant: $0) },
+            bottom.flatMap { bottomAnchor.constraint(equalTo: superview!.layoutMarginsGuide.bottomAnchor, constant: -$0) },
+            trailing.flatMap { trailingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.trailingAnchor, constant: -$0) },
         ]
         NSLayoutConstraint.activate(constaints.compactMap { $0 })
         return self
@@ -43,8 +43,8 @@ extension UIView {
         let constaints: [NSLayoutConstraint?] = [
             top.flatMap { topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: $0) },
             leading.flatMap { leadingAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leadingAnchor, constant: $0) },
-            bottom.flatMap { bottomAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.bottomAnchor, constant: $0) },
-            trailing.flatMap { trailingAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.trailingAnchor, constant: $0) },
+            bottom.flatMap { bottomAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.bottomAnchor, constant: -$0) },
+            trailing.flatMap { trailingAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.trailingAnchor, constant: -$0) },
         ]
         NSLayoutConstraint.activate(constaints.compactMap { $0 })
         return self
@@ -61,5 +61,17 @@ extension UIView {
         NSLayoutConstraint.activate(constaints.compactMap { $0 })
         return self
     }
+    
+    @discardableResult
+    func addSize(width: CGFloat? = nil, height: CGFloat? = nil) -> UIView {
+        translatesAutoresizingMaskIntoConstraints = false
+        let constaints: [NSLayoutConstraint?] = [
+            width.flatMap { widthAnchor.constraint(equalToConstant: $0) },
+            height.flatMap { heightAnchor.constraint(equalToConstant: $0) },
+        ]
+        NSLayoutConstraint.activate(constaints.compactMap { $0 })
+        return self
+    }
+    
 }
 
